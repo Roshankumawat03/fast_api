@@ -80,3 +80,32 @@ def name_email():
             })
     return name_email                            
        
+# write a API that user first name, city, and hair color
+
+@app.get("/name_city")
+def name_city():
+    with open ("dummy_user_data.json") as f:
+        data = json.load(f)
+    name_city = []
+    data = data["users"]
+    for x in data:
+        name_city.append(
+            {
+            "name": x.get("firstName"), 
+            "city": x.get("address")["city"]
+            })
+    return name_city
+
+@app.get("/name_haircolor")
+def name_haircolor():
+    with open ("dummy_user_data.json") as f:
+        data = json.load(f)
+    name_haircolor = []
+    data = data["users"]
+    for x in data:
+        name_haircolor.append(
+            {
+            "name": x.get("firstName"), 
+            "color": x.get("hair")["color"]
+            })
+    return name_haircolor
