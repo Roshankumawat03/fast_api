@@ -109,3 +109,55 @@ def name_haircolor():
             "color": x.get("hair")["color"]
             })
     return name_haircolor
+
+@app.get("/users/{data}")
+def tqp(data:int):
+    return data
+
+
+@app.get("/list/{status}")
+def todo(status):
+    with open ("todolist_data.json") as f:
+        data = json.load(f)
+    completed_todo = []
+    uncompleted_todo = []
+
+    data = data["todos"]
+    for x in data:
+        if x.get("completed"):
+            completed_todo.append(x)
+        else:
+            uncompleted_todo.append(x)
+    if status == "completed":
+        return completed_todo
+    elif status == "uncompleted":
+        return uncompleted_todo 
+    else:
+        return {
+            "status": False,
+            "message": "invalid status"
+        }  
+
+
+@app.get("/list/{hair}")
+def hair_color(hair):
+    with open ("dummy_user_data.json") as f:
+        data = json.load(f)
+    color_Brown = []
+    color_White = []
+
+    data = data["users"]
+    for x in data:
+        if x.get("hair")["color"] == "Brown":
+            color_Brown.append( x.get("firstName") )
+        if x.get("hair")["color"] == "White":
+            color_White.append( (x.get("firstName")) )
+    if hair == "Brown":
+        return color_Brown
+    elif hair == "White":
+        return color_White
+    else:
+        return {
+            "status": False,
+            "message": "Invalid hair color"
+        }              
