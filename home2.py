@@ -139,7 +139,7 @@ def todo(status):
         }  
 
 
-@app.get("/list/{hair}")
+@app.get("/listhair/{hair}")
 def hair_color(hair):
     with open ("dummy_user_data.json") as f:
         data = json.load(f)
@@ -160,4 +160,27 @@ def hair_color(hair):
         return {
             "status": False,
             "message": "Invalid hair color"
-        }              
+        }
+    
+
+@app.get("/list_task/{userId}") 
+def userid_number(userId:int):
+    with open ("todolist_data.json") as f:
+        data = json.load(f)
+    userid_number = []    
+    data = data["todos"]
+    for x in data:
+        if x.get("userId") == userId:
+            userid_number.append(x)
+    return userid_number   
+
+@app.get("/dummy_post")
+def user_likes():
+    with open ("dummy_post.json") as f:
+        data = json.load(f)
+    user_likes = []
+    data = data["posts"]
+    for x in data:
+        if x.get("reactions").get("likes") > 100:
+            user_likes.append(x)
+    return user_likes                   
