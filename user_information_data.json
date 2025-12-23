@@ -1,0 +1,26 @@
+[
+    {
+        "username": "aman",
+        "password": "abcd",
+        "email": "aman@gmail.com",
+        "address": "jaipur"
+    },
+    {
+        "username": "ajay",
+        "password": "jklm",
+        "email": "ajay@gmail.com",
+        "address": "ajmer"
+    },
+    {
+        "username": "vijay",
+        "password": "vijay",
+        "email": "vijay@gmail.com",
+        "address": "udaipur"
+    },
+    {
+        "username": "rahul",
+        "password": "abcd",
+        "email": "rahul@gmail.com",
+        "address": "sikar"
+    }
+]
