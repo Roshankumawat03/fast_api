@@ -5,5 +5,19 @@
         "mail": "rahul@gmail.com",
         "addr": "ghar",
         "mob": 12234
+    },
+    {
+        "username": "mk",
+        "name": "mohan",
+        "mail": null,
+        "addr": null,
+        "mob": null
+    },
+    {
+        "username": "aj",
+        "name": "ajay",
+        "mail": "ajay@gmail.com",
+        "addr": "jaipur",
+        "mob": 123567
     }
 ]
