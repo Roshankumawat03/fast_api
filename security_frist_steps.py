@@ -8,19 +8,6 @@ from pydantic import BaseModel
 app = FastAPI()
 
 
-class Dummy(BaseModel):
-    username: str
-    password: str
-    client_id: str
- 
-
-@app.post("/test")
-def login(data: Annotated[Dummy, Form()], response:Response):
-    if data.username == "admin" and data.password == "123":
-        return {"message": "login done."}
-    else:
-        response.status_code = status.HTTP_401_UNAUTHORIZED
-        return {"message": "login fail"}
     
 
 
@@ -50,3 +37,22 @@ def home():
     <h1>Hi</h1>
     <h2>Hi</h2>
     """)
+
+
+
+
+
+
+# class Dummy(BaseModel):
+#     username: str
+#     password: str
+#     client_id: str
+ 
+
+# @app.post("/test")
+# def login(data: Annotated[Dummy, Form()], response:Response):
+#     if data.username == "admin" and data.password == "123":
+#         return {"message": "login done."}
+#     else:
+#         response.status_code = status.HTTP_401_UNAUTHORIZED
+#         return {"message": "login fail"}
