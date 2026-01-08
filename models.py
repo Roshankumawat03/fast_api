@@ -52,3 +52,48 @@ def register(db: SessionDep, data = Body(...)):
 def register(db : SessionDep):
     test = db.query(Hero).all()
     return {"message": test}
+
+
+@app.get("/get/{username}")
+def register(username,db : SessionDep):
+
+    test = db.query(Hero).filter(Hero.username == username).first()
+    if not test:
+        return HTTPException(409, "User not found.")
+
+
+@app.patch("/update/{username}")
+def update(username, db : SessionDep, data = Body(...)):
+
+    data_in_db = db.query(Hero).filter(Hero.username == username).first()
+    if not data_in_db:
+        return HTTPException (409, "User not found.")
+    
+    if data.get("password"):
+        password = bcrypt.hashpw(data.get("password").encode("UTF-8"), salt=bcrypt.gensalt(14))
+        data_in_db.password = password
+    if  data.get("name"):
+        data_in_db.name = data.get("name")
+    if data.get("mob"):
+        data_in_db.mob =data.get("mob")
+    if data.get("age"):
+        data_in_db.age = data.get("age")
+
+    db.add(data_in_db)
+    db.commit()    
+
+    return {"message": "User updated completed."} 
+
+
+@app.patch("/delete/{id}")
+def delete(id, db : SessionDep):
+
+    data_in_db = db.query(Hero).filter(Hero.id == id).first()
+    if not data_in_db:
+        return HTTPException (409, "User not found.")
+    
+
+    db.delete(data_in_db)
+    db.commit()    
+
+    return {"message": "User deleted completed."}
