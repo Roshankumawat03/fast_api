@@ -12,7 +12,7 @@ def create_task(db: SessionDep, login_info:Annotated[str, Depends(validation_log
     task_title = data.get("title")
     description = data.get("description")
     status = data.get("status") if data.get("status") else False
-    data_to_add_in_db = Task(user_username=login_info, title=task_title, description=description, status=status)
+    data_to_add_in_db = Task(user_id=login_info, title=task_title, description=description, status=status)
     db.add(data_to_add_in_db)
     db.commit()
     return {"message": "task created successfully."}
@@ -21,7 +21,7 @@ def create_task(db: SessionDep, login_info:Annotated[str, Depends(validation_log
 @task_route.patch("/update_task/{task_id}")
 def update_task(task_id,db: SessionDep, login_info:Annotated[str, Depends(validation_login)], data= Body(...)):
 
-    db_data = db.query(Task).filter(Task.user_username == login_info).filter(Task.id == task_id).first()
+    db_data = db.query(Task).filter(Task.user_id == login_info).filter(Task.id == task_id).first()
     if not db_data:
         return HTTPException(409, "Given task id is not available or not attached to this user.")
     if data.get("title"):
@@ -41,7 +41,7 @@ def update_task(task_id,db: SessionDep, login_info:Annotated[str, Depends(valida
 @task_route.get("/read_task")
 def read_task(db: SessionDep, login_info:Annotated[str, Depends(validation_login)]):
 
-    db_data = db.query(Task).filter(Task.user_username == login_info).all()
+    db_data = db.query(Task).filter(Task.user_id == login_info).all()
     
     return {"message": db_data}
 
@@ -49,7 +49,7 @@ def read_task(db: SessionDep, login_info:Annotated[str, Depends(validation_login
 @task_route.delete("/delete_task/{task_id}")
 def delete_task(task_id,db: SessionDep, login_info:Annotated[str, Depends(validation_login)]):
 
-    db_data = db.query(Task).filter(Task.user_username == login_info).filter(Task.id == task_id).first()
+    db_data = db.query(Task).filter(Task.user_id == login_info).filter(Task.id == task_id).first()
     if not db_data:
         return HTTPException(409, "Given task id is not available or not attached to this user.")
           

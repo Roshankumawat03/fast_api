@@ -13,7 +13,7 @@ class User(SQLModel, table= True):
 
 class Task(SQLModel, table= True):
     id: int | None = Field(default=None, primary_key=True)
-    user_id: int
+    user_id: str
     title: str
     description: str
     status: bool = False
